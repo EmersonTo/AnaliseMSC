@@ -20,6 +20,7 @@ if selecao == "Importar Arquivo":
         
 elif selecao == "Receita":
     st.subheader("RECEITA")
+    st.dataframe('./base_dados.cvs')
 
 elif selecao == "Despesa":
     st.subheader("DESPESA")
