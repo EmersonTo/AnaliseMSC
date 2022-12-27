@@ -20,7 +20,8 @@ if selecao == "Importar Arquivo":
         
 elif selecao == "Receita":
     st.subheader("RECEITA")
-    st.dataframe('./base_dados.cvs')
+    data = pd.read_csv("base_dados.csv")
+    st.dataframe(data)
 
 elif selecao == "Despesa":
     st.subheader("DESPESA")
