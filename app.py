@@ -13,6 +13,7 @@ if uploaded_file is not None:
     detalhes = {"FileName": uploaded_file.name, "FileType": uploaded_file.type}
     dataframe = pd.read_csv(uploaded_file, encoding='utf-8',sep=';')
     st.dataframe(dataframe)
+    funcoes.importa_base_dados(dataframe)
 
 
     
