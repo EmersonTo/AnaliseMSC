@@ -1,3 +1,9 @@
+import pandas as pd
+import numpy as np
+import csv
+import os
+
+
 def criar_base_dados_zerada():
     # CRIA DATAFRAME ZERADO
     arquivo = 'base_dados.csv'
@@ -69,3 +75,4 @@ def delete_dataframe(codigo, ano, mes):
             base_dados.ANO.isin(ano_) & base_dados.MES.isin(mes_))
     base_dados = base_dados.loc[~mask]
     return base_dados
+
