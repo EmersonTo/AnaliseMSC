@@ -4,4 +4,4 @@ numpy
 csv
 os
 psycopg2-binary
-
+psycopg2
