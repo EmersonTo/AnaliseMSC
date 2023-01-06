@@ -17,15 +17,9 @@ def criar_base_dados_zerada():
         print("BASE DE DADOS CRIADA COM SUCESSO")
 
 
-def importa_base_dados():
-    base_dados = pd.read_csv(
-        "base_dados.csv", encoding='utf-8', sep=';', dtype=str)
-    return base_dados
-
-
 def importa_cvs(arquivo):
-    global base_dados
-    base_dados = importa_base_dados()
+    base_dados = pd.read_csv(
+        arquivo, encoding='utf-8', sep=';', dtype=str)
 
     with open(arquivo) as ficheiro:
         linhas = []
@@ -37,6 +31,7 @@ def importa_cvs(arquivo):
                [1]).strip('[]').split('-')[0]
         mes = ((str(linhas[0]).strip('[]').split(';'))[
                1]).strip('[]').split('-')[1].strip("'")
+
     if validar_se_ja_existe_dataframe(codigo, ano, mes):
         print("PASSOU AKI")
         delete_dataframe(codigo, ano, mes)
@@ -75,4 +70,3 @@ def delete_dataframe(codigo, ano, mes):
             base_dados.ANO.isin(ano_) & base_dados.MES.isin(mes_))
     base_dados = base_dados.loc[~mask]
     return base_dados
-

@@ -18,3 +18,15 @@ def run_query(query):
     with conn.cursor() as cur:
         cur.execute(query)
         return cur.fetchall()
+
+@st.experimental_memo
+def run_insert(query):
+    with conn.cursor() as cur:
+        cur.execute(query)
+        conn.commit()
+
+@st.experimental_memo
+def run_delete(query):
+    with conn.cursor() as cur:
+        cur.execute(query)
+        conn.commit()
