@@ -26,6 +26,6 @@ def importar_arquivo():
                [1]).strip('[]').split('-')[0]
         mes = ((str(string_data[0]).strip('[]').split(';'))[
                1]).strip('[]').split('-')[1].strip("'")
-        st.write(codigo)
-        st.write(ano)
-        st.write(mes)
+        # st.write(codigo)
+        # st.write(ano)
+        # st.write(mes)
