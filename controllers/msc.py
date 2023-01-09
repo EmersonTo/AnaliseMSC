@@ -14,3 +14,9 @@ def Incluir(msc):
                      msc.ic4, msc.tipo4, msc.ic5, msc.tipo5, msc.ic6, msc.tipo6, msc.ic7,
                      msc.tipo7, msc.valor, msc.tipo_valor, msc.natureza_valor, msc.codigo_siconfi,
                      msc.ano, msc.mes))
+
+
+def Excluir(codigo, ano, mes):
+    row = db.run_delete("""DELETE FROM public.msc where codigo_siconfi = '%s' and ano = '%s' 
+                            and mes = '%s'"""
+                        % (codigo, ano, mes))

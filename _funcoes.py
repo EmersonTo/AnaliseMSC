@@ -24,7 +24,7 @@ def pegar_codigo_ano_mes(arquivo):
     string_data = stringio.readline()
     codigo = string_data.split(';')[0]
     ano = string_data.split(';')[1].split('-')[0]
-    mes = string_data.split(';')[1].split('-')[1]
+    mes = string_data.split(';')[1].split('-')[1].strip()
     return codigo, ano, mes
 
 
@@ -34,7 +34,6 @@ def tratar_dataframe(arquivo, codigo, ano, mes):
     arquivo['MUNICIPIO'] = codigo
     arquivo['ANO'] = ano
     arquivo['MES'] = mes
-
     return arquivo
 
 
