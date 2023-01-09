@@ -1,8 +1,8 @@
 import streamlit as st
 import pandas as pd
 import _funcoes as funcoes
-import csv
-from io import StringIO
+import controllers.msc as controllerMsc
+import models.msc as msc
 
 
 def importar_arquivo():
@@ -11,21 +11,18 @@ def importar_arquivo():
     if uploaded_file is not None:
         detalhes = {"FileName": uploaded_file.name,
                     "FileType": uploaded_file.type}
-        st.write(uploaded_file)
-        #dataframe = pd.read_csv(uploaded_file, encoding='utf-8', sep=';')
-        # st.dataframe(dataframe)
-        #df = funcoes.importa_cvs(uploaded_file)
-        #bytes_data = uploaded_file.getvalue()
-        # st.write(bytes_data)
-        stringio = StringIO(uploaded_file.getvalue().decode("utf-8"))
-        string_data = stringio.readline()
-        st.write(string_data)
-        print(type(string_data))
-        codigo = (str(string_data[0]).strip('[]').split(';'))[0].strip("'")
-        ano = ((str(string_data[0]).strip('[]').split(';'))
-               [1]).strip('[]').split('-')[0]
-        mes = ((str(string_data[0]).strip('[]').split(';'))[
-               1]).strip('[]').split('-')[1].strip("'")
-        # st.write(codigo)
-        # st.write(ano)
-        # st.write(mes)
+        codigo, ano, mes = funcoes.pegar_codigo_ano_mes(uploaded_file)
+        df = pd.read_csv(uploaded_file, encoding='utf-8',
+                         sep=';', skiprows=[0], dtype=str)
+        df = funcoes.tratar_dataframe(df, codigo, ano, mes)
+        st.dataframe(df.style.format({'VALOR': '{:.2f}'}))
+        for index, row in df.iterrows():
+            print("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-")
+            print(row["CONTA"], row["IC1"], row["TIPO1"], row["IC2"], row["TIPO2"],
+                  row["IC3"], row["TIPO3"], row["IC4"], row["TIPO4"], row["IC5"], row["TIPO5"], row["IC6"],
+                  row["TIPO6"], row["IC7"], row["TIPO7"], row["VALOR"], row["TIPO_VALOR"], row["NATUREZA_VALOR"],
+                  row["MUNICIPIO"], row["ANO"], row["MES"])
+            controllerMsc.Incluir(msc.Msc(row["CONTA"], row["IC1"], row["TIPO1"], row["IC2"], row["TIPO2"],
+                                          row["IC3"], row["TIPO3"], row["IC4"], row["TIPO4"], row["IC5"], row["TIPO5"], row["IC6"],
+                                          row["TIPO6"], row["IC7"], row["TIPO7"], row["VALOR"], row["TIPO_VALOR"], row["NATUREZA_VALOR"],
+                                          row["MUNICIPIO"], row["ANO"], row["MES"]))

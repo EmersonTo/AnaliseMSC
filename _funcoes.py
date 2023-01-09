@@ -2,6 +2,8 @@ import pandas as pd
 import numpy as np
 import csv
 import os
+from io import StringIO
+import streamlit as st
 
 
 def criar_base_dados_zerada():
@@ -17,20 +19,26 @@ def criar_base_dados_zerada():
         print("BASE DE DADOS CRIADA COM SUCESSO")
 
 
-def importa_cvs(arquivo):
-    base_dados = pd.read_csv(
-        arquivo, encoding='utf-8', sep=';', dtype=str)
+def pegar_codigo_ano_mes(arquivo):
+    stringio = StringIO(arquivo.getvalue().decode("utf-8"))
+    string_data = stringio.readline()
+    codigo = string_data.split(';')[0]
+    ano = string_data.split(';')[1].split('-')[0]
+    mes = string_data.split(';')[1].split('-')[1]
+    return codigo, ano, mes
 
-    with open(arquivo) as ficheiro:
-        linhas = []
-        reader = csv.reader(ficheiro)
-        for linha in reader:
-            linhas.append(linha)
-        codigo = (str(linhas[0]).strip('[]').split(';'))[0].strip("'")
-        ano = ((str(linhas[0]).strip('[]').split(';'))
-               [1]).strip('[]').split('-')[0]
-        mes = ((str(linhas[0]).strip('[]').split(';'))[
-               1]).strip('[]').split('-')[1].strip("'")
+
+def tratar_dataframe(arquivo, codigo, ano, mes):
+    arquivo = arquivo.astype({"VALOR": 'float'})
+    arquivo = arquivo.fillna(0)
+    arquivo['MUNICIPIO'] = codigo
+    arquivo['ANO'] = ano
+    arquivo['MES'] = mes
+
+    return arquivo
+
+
+def importa_cvs(arquivo):
 
     if validar_se_ja_existe_dataframe(codigo, ano, mes):
         print("PASSOU AKI")
