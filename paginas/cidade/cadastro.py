@@ -1,7 +1,6 @@
 import streamlit as st
 import controllers.cidade as controllerCidade
 import models.cidade as cidade
-import _enum as enum
 
 
 def criar():

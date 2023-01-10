@@ -9,6 +9,7 @@ import _enum as enum
 import paginas.cidade.cadastro as pgCadastroCidade
 import paginas.cidade.excluir as pgExcluirCidade
 import paginas.importa.importar as pgImportar
+import paginas.receita.resumo as pagResumoReceita
 
 telas = enum.enum_telas()
 funcionalidades = enum.enum_funcionalidadeas()
@@ -32,10 +33,9 @@ else:
         pgImportar.importar_arquivo()
 
     elif selecao == "Receita":
-        st.subheader("RECEITA")
-        data = pd.read_csv("base_dados.csv")
-        st.dataframe(data)
+        pagResumoReceita.tabela_receita()
+
+        st.write('ok')
 
     elif selecao == "Despesa":
-        st.subheader("DESPESA")
-        rows = db.run_query("SELECT nome from cidade;")
+        st.write('ok')
