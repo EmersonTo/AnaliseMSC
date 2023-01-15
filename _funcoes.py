@@ -29,11 +29,20 @@ def pegar_codigo_ano_mes(arquivo):
 
 
 def tratar_dataframe(arquivo, codigo, ano, mes):
+    if ano == '2022':
+        arquivo["IC7"] = np.nan
+        arquivo["TIPO7"] = np.nan
+        
     arquivo = arquivo.astype({"VALOR": 'float'})
     arquivo = arquivo.fillna(0)
     arquivo['MUNICIPIO'] = codigo
     arquivo['ANO'] = ano
     arquivo['MES'] = mes
+    arquivo = arquivo[["CONTA", "IC1", "TIPO1", "IC2", "TIPO2", "IC3", "TIPO3", "IC4", "TIPO4",
+                       "IC5", "TIPO5", "IC6", "TIPO6", "IC7", "TIPO7", "VALOR", "TIPO_VALOR",
+                       "NATUREZA_VALOR", "MUNICIPIO", "ANO", "MES"]]
+    
+    st.experimental_memo.clear()
     return arquivo
 
 

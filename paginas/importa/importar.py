@@ -15,7 +15,8 @@ def importar_arquivo():
         df = pd.read_csv(uploaded_file, encoding='utf-8',
                          sep=';', skiprows=[0], dtype=str)
         df = funcoes.tratar_dataframe(df, codigo, ano, mes)
-        st.dataframe(df.style.format({'VALOR': '{:.2f}'}))
+        #st.dataframe(df.style.format({'VALOR': '{:.2f}'}))
+        st.dataframe(df)
         controllerMsc.Excluir(codigo, ano, mes)
         st.success('Registro Anteriores Excluído com Sucesso no Banco de Dados')
         for index, row in df.iterrows():
@@ -24,3 +25,4 @@ def importar_arquivo():
                                           row["TIPO6"], row["IC7"], row["TIPO7"], row["VALOR"], row["TIPO_VALOR"], row["NATUREZA_VALOR"],
                                           row["MUNICIPIO"], row["ANO"], row["MES"]))
         st.success('Registro Importado no Banco de Dados com Sucesso')
+        st.experimental_memo.clear()

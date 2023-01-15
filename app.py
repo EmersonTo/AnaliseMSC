@@ -35,7 +35,5 @@ else:
     elif selecao == "Receita":
         pagResumoReceita.tabela_receita()
 
-        st.write('ok')
-
     elif selecao == "Despesa":
         st.write('ok')
